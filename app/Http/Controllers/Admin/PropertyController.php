@@ -17,9 +17,15 @@ class PropertyController extends Controller
     }
 
     public function index(){
-        $properties = $this->propertyService->getAllProperties();
-        return view('admin.Properties.index',[
+        $properties = $this->propertyService->getPropertiesWithCategories();
+        return view('admin.properties.index',[
             'properties' => $properties,
+        ]);
+    }
+
+    public function create(){
+        return view('admin.properties.form',[
+
         ]);
     }
 

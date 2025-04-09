@@ -31,6 +31,10 @@ class PropertyRepository implements PropertyRepositoryInterface {
         return Property::where('category_id', $categoryId)->with(['images'])->get();
     }
 
+    public function getPropertiesWithCategories(): Collection{
+        return Property::with(['categories', 'images'])->get();
+    }
+
     public function create(array $data): Property {
         return Property::create($data);
     }

@@ -22,6 +22,10 @@ class PropertyService {
         return $this->propertyRepository->getPropertiesByUser($userId);
     }
 
+    public function getPropertiesWithCategories(){
+        return $this->propertyRepository->getPropertiesWithCategories();
+    }
+
     public function getPropertyDetails(int $id) {
         return $this->propertyRepository->findById($id);
     }

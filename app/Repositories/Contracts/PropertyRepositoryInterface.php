@@ -14,6 +14,8 @@ interface PropertyRepositoryInterface{
 
     public function getPropertiesByUser(int $userId);
     
+    public function getPropertiesWithCategories();
+    
     public function getByCategory(int $categoryId);
 
     public function create(array $data);

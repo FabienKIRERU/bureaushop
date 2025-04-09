@@ -63,7 +63,7 @@
 </div>
 <hr>
 <div style="text-align: justify">
-    <a href="" class="">
+    <a href="{{ route('admin.property.index') }}" class="">
         <div class="lien">
             Proprietaires
         </div>

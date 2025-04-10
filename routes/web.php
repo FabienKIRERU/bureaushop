@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::get('property', [PropertyController::class, 'index'])->name('property.index');
         Route::get('property/create', [PropertyController::class, 'create'])->name('property.create');
+        Route::post('property/create', [PropertyController::class, 'store'])->name('property.store');
     });
 
     // Les routes pour le owner

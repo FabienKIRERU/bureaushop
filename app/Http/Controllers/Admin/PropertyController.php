@@ -5,17 +5,21 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use App\Models\Property;
 use Illuminate\Http\Request;
+use App\Services\CategoryService;
 use App\Services\PropertyService;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Admin\FormPropertyRequest;
 
 class PropertyController extends Controller
 {
     protected $propertyService;
+    protected $categoryService;
 
-    public function __construct(PropertyService $propertyService)
+    public function __construct(PropertyService $propertyService, CategoryService $categoryService)
     {
         $this->propertyService = $propertyService;
+        $this->categoryService = $categoryService;
     }
 
     public function index(){
@@ -26,9 +30,11 @@ class PropertyController extends Controller
     }
 
     public function create(){
+
+        $categories = $this->categoryService->getCategoriesByUser(Auth::id());
         return view('admin.properties.form',[
             // 'property' => new Property(),
-            'categories' => Category::get(),
+            'categories' => $categories,
         ]);
     }
 
@@ -49,7 +55,7 @@ class PropertyController extends Controller
 
         $property->categories()->sync($allCategoryIds);
 
-        return redirect()->route('admin.property.index')->with('success', 'Propriété créée avec succès.');
+        return redirect()->route('admin.properties.index')->with('success', 'Propriété créée avec succès.');
     }
 
     public function delete(Property $property){

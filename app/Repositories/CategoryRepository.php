@@ -30,6 +30,16 @@ use App\Repositories\Contracts\CategoryRepositoryInterface;
        });
     }
 
+    public function getWithUser(){
+        return Cache::remember('categories', 60 * 60 * 24, function () {
+            return $this->category->whereNotNull('user_id')->get();
+        });
+    }
+
+    public function getByUser(int $userId){
+        return $this->category->where('user_id', $userId)->get();
+    }
+
     public function findById($id)
     {
        return $this->category->findorFail($id);

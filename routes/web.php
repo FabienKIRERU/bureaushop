@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -16,9 +17,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
         });
-        Route::get('property', [PropertyController::class, 'index'])->name('property.index');
+        Route::get('properties', [PropertyController::class, 'index'])->name('properties.index');
         Route::get('property/create', [PropertyController::class, 'create'])->name('property.create');
         Route::post('property/create', [PropertyController::class, 'store'])->name('property.store');
+
+        Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+        Route::get('category/create', [CategoryController::class, 'create'])->name('category.create');
+        Route::post('category/create', [CategoryController::class, 'store'])->name('category.store');
+        Route::get('category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+        Route::put('category/{id}/edit', [CategoryController::class, 'update'])->name('category.update');
+        Route::delete('category/{id}/delete', [CategoryController::class, 'destroy'])->name('category.delete');
     });
 
     // Les routes pour le owner

@@ -63,14 +63,19 @@
 </div>
 <hr>
 <div style="text-align: justify">
-    <a href="{{ route('admin.property.index') }}" class="">
+    <a href="{{ route('admin.properties.index') }}" class="">
         <div class="lien">
-            Proprietaires
+            Fourniture Bureau
+        </div>
+    </a>
+    <a href="{{ route('admin.categories.index') }}" class="">
+        <div class="lien">
+            Categorie
         </div>
     </a>
     <a href="" class="">
         <div class="lien">
-            Fourniture Bureau
+            Proprietaires
         </div>
     </a>
     <a href="" class="">

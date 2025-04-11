@@ -18,6 +18,14 @@ class CategoryService {
         return $this->categoryRepository->getAll();
     }
 
+    public function getCategoriesWithUser(){
+        return $this->categoryRepository->getWithUser();
+    }
+
+    public function getCategoriesByUser(int $userId){
+        return $this->categoryRepository->getByUser($userId);
+    }
+
     public function getCategoryById(int $id) {
         return $this->categoryRepository->findById($id);
     }
@@ -34,11 +42,11 @@ class CategoryService {
         }
     }
 
-    public function updateCategory(Category $category, array $data) {
-        return $this->categoryRepository->update($category, $data);
+    public function updateCategory($id, array $data) {
+        return $this->categoryRepository->update($id, $data);
     }
 
-    public function deleteCategory(Category $category) {
-        return $this->categoryRepository->delete($category);
+    public function deleteCategory($id) {
+        return $this->categoryRepository->delete($id);
     }
 }

@@ -14,7 +14,6 @@
 @section('title', "Créer un bien")
 
 @section('content')
-{{-- <div class="contenuForm"> --}}
     <div class="formproperty">
         <h2 style="text-align: center" class="text-secondary">@yield('title')</h2>
         <form action="{{ route('admin.property.store') }}" method="post" class="vstack gap-2" enctype="multipart/form-data">
@@ -93,6 +92,4 @@
         </form>
     
     </div>
-
-{{-- </div> --}}
 @endsection

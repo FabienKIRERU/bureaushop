@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Contracts;
 
+use App\Models\Category;
+
 interface CategoryRepositoryInterface
 {
     

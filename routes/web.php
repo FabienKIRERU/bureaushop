@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PropertyController;
+use App\Http\Controllers\Owner\PropertyController as OwnerPropertyController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', function () {
             return view('owner.dashboard');
         });
+        Route::get('properties', [OwnerPropertyController::class, 'index'])->name('properties.index');
+        Route::get('property/create', [OwnerPropertyController::class, 'create'])->name('property.create');
+        Route::post('property/create', [OwnerPropertyController::class, 'store'])->name('property.store');
+        Route::get('property/{id}/edit', [OwnerPropertyController::class, 'edit'])->name('property.edit');
+        Route::put('property/{id}/edit', [OwnerPropertyController::class, 'update'])->name('property.update');
+        Route::delete('property/{id}/delete', [OwnerPropertyController::class, 'destroy'])->name('property.delete');
     });
 
     // Les routes pour le buyer

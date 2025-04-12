@@ -63,16 +63,16 @@
 </div>
 <hr>
 <div style="text-align: justify">
-    <a href="" class="">
-        <div class="lien">
-            Proprietaires
-        </div>
-    </a>
-    <a href="" class="">
+    <a href="{{ route('owner.properties.index') }}" class="">
         <div class="lien">
             Fourniture Bureau
         </div>
     </a>
+    {{-- <a href="{{ route('owner.properties.index') }}" class="">
+        <div class="lien">
+            Categorie
+        </div>
+    </a> --}}
     <a href="" class="">
         <div class="lien">
             Commande

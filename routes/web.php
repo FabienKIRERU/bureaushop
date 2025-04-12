@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PropertyController;
+use App\Http\Controllers\Owner\CategoryController as OwnerCategoryController;
 use App\Http\Controllers\Owner\PropertyController as OwnerPropertyController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('property/{id}/edit', [OwnerPropertyController::class, 'edit'])->name('property.edit');
         Route::put('property/{id}/edit', [OwnerPropertyController::class, 'update'])->name('property.update');
         Route::delete('property/{id}/delete', [OwnerPropertyController::class, 'destroy'])->name('property.delete');
+
+        Route::get('categories', [OwnerCategoryController::class, 'index'])->name('categories.index');
+        Route::get('category/create', [OwnerCategoryController::class, 'create'])->name('category.create');
+        Route::post('category/create', [OwnerCategoryController::class, 'store'])->name('category.store');
+        Route::get('category/{id}/edit', [OwnerCategoryController::class, 'edit'])->name('category.edit');
+        Route::put('category/{id}/edit', [OwnerCategoryController::class, 'update'])->name('category.update');
+        Route::delete('category/{id}/delete', [OwnerCategoryController::class, 'destroy'])->name('category.delete');
     });
 
     // Les routes pour le buyer

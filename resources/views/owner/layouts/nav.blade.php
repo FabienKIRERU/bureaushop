@@ -68,11 +68,11 @@
             Fourniture Bureau
         </div>
     </a>
-    {{-- <a href="{{ route('owner.properties.index') }}" class="">
+    <a href="{{ route('owner.categories.index') }}" class="">
         <div class="lien">
             Categorie
         </div>
-    </a> --}}
+    </a>
     <a href="" class="">
         <div class="lien">
             Commande

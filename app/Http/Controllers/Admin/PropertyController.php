@@ -26,6 +26,7 @@ class PropertyController extends Controller
         $properties = $this->propertyService->getPropertiesWithCategories();
         return view('admin.properties.index',[
             'properties' => $properties,
+            $categories = $this->categoryService->getCategoriesByUser(Auth::id()),
         ]);
     }
 
@@ -37,16 +38,35 @@ class PropertyController extends Controller
             'categories' => $categories,
         ]);
     }
+    
 
-    public function store(FormPropertyRequest $formPropertyRequest){
-        // dd($formPropertyRequest->validated());
+    public function store(Request $request){
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric',
+            'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id',
+            'new_categories' => 'nullable|string',
+        ]);
 
-        $property = $this->propertyService->createProperty($formPropertyRequest->validated());
+        $data['user_id'] = Auth::id(); 
 
-        $allCategoryIds = $formPropertyRequest['categories'] ?? [];
+        // $this->propertyService->createProperty($data);
+
+        // return redirect()->route('admin.properties.index')->with('success', 'Propriété créée avec succès.');
+
+
+        // $property = $this->propertyService->createProperty($formPropertyRequest->validated());
+
+        $property = $this->propertyService->createProperty($data);
+        // dd($data);
+
+        $allCategoryIds = $request['categories'] ?? [];
 
         if (!empty($data['new_categories'])) {
-            $newNames = array_map('trim', explode(',', $formPropertyRequest['new_categories']));
+            $newNames = array_map('trim', explode(',', $request['new_categories']));
             foreach ($newNames as $name) {
                 $category = Category::firstOrCreate(['name' => $name]);
                 $allCategoryIds[] = $category->id;
@@ -54,12 +74,40 @@ class PropertyController extends Controller
         }
 
         $property->categories()->sync($allCategoryIds);
-
         return redirect()->route('admin.properties.index')->with('success', 'Propriété créée avec succès.');
     }
 
-    public function delete(Property $property){
-        $this->propertyService->deleteProperty($property);
+    public function edit($id){
+        $categories = $this->categoryService->getCategoriesByUser(Auth::id());
+            
+        return view('admin.properties.edit',[
+            'property' => $this->propertyService->getPropertyDetails($id),
+            'categories' => $categories,
+        ]);
+    }
+
+    public function update($id, Request $request){
+
+        $data = $request->validate([
+                'name' => 'required|string|max:255',
+                'description' => 'nullable|string',
+                'price' => 'required|numeric',
+                'stock' => 'required|numeric',
+                'categories' => 'required|array',
+                'categories.*' => 'exists:categories,id',
+        ]);
+
+        $data['user_id'] = Auth::id();
+        // dd($data);
+
+        $this->propertyService->updateProperty($id, $data);
+    
+        return redirect()->route('admin.properties.index')->with('success', 'Bien mis à jour avec succès.');
+
+    }
+
+    public function destroy($id){
+        $this->propertyService->deleteProperty($id);
         return redirect()->back()->with('success', 'Propriété supprimée avec succès.');
     }
 }

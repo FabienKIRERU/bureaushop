@@ -38,6 +38,9 @@ use App\Repositories\Contracts\CategoryRepositoryInterface;
 
     public function getByUser(int $userId){
         return $this->category->where('user_id', $userId)->get();
+        // return Category::whereHas('properties', function ($query) use ($userId) {
+        //     $query->where('user_id', $userId);
+        // })->get();
     }
 
     public function findById($id)
@@ -62,5 +65,7 @@ use App\Repositories\Contracts\CategoryRepositoryInterface;
         Cache::forget('categories');
         $this->findById($id)->delete();
     }
+    
+    
 
  }

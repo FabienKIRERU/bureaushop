@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Category;
+use App\Models\Property;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -54,5 +55,10 @@ class User extends Authenticatable
     public function categories(){
         return $this->hasMany(Category::class);
     }
+
+    public function properties(){
+        return $this->hasMany(Property::class);
+    }
+
 
 }

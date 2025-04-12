@@ -46,11 +46,11 @@ class PropertyService {
         }
     }
 
-    public function updateProperty(Property $property, array $data) {
-        return $this->propertyRepository->update($property, $data);
+    public function updateProperty($id, array $data) {
+        return $this->propertyRepository->update($id, $data);
     }
 
-    public function deleteProperty(Property $property) {
-        return $this->propertyRepository->delete($property);
+    public function deleteProperty($id) {
+        return $this->propertyRepository->delete($id);
     }
 }

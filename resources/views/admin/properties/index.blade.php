@@ -33,10 +33,11 @@
                     
                     <td>
                         <div class="d-flex gap-2 w-100 justify-content-end">
-                            <a href="" class="btn btn-light text-dark">Editer</a>
-                            <form action="" method="post">
+                            <a href="{{ route('admin.property.edit', $property->id) }}" class="btn btn-light text-dark">Editer</a>
+
+                            <form action="{{ route('admin.property.delete', $property->id) }}" method="POST" onsubmit="return confirm('Es-tu sûr de vouloir supprimer ce bien ?')">
                                 @csrf
-                                @method('delete')
+                                @method('DELETE')
                                 <button class="btn btn-light text-danger">Supprimer</button>
                             </form>
                         </div>

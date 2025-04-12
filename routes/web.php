@@ -20,6 +20,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('properties', [PropertyController::class, 'index'])->name('properties.index');
         Route::get('property/create', [PropertyController::class, 'create'])->name('property.create');
         Route::post('property/create', [PropertyController::class, 'store'])->name('property.store');
+        Route::get('property/{id}/edit', [PropertyController::class, 'edit'])->name('property.edit');
+        Route::put('property/{id}/edit', [PropertyController::class, 'update'])->name('property.update');
+        Route::delete('property/{id}/delete', [PropertyController::class, 'destroy'])->name('property.delete');
 
         Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
         Route::get('category/create', [CategoryController::class, 'create'])->name('category.create');

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Owner\CategoryController as OwnerCategoryController;
 use App\Http\Controllers\Owner\PropertyController as OwnerPropertyController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PropertyController as ControllersPropertyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -54,16 +55,18 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('category/{id}/delete', [OwnerCategoryController::class, 'destroy'])->name('category.delete');
     });
 
-    // Les routes pour le buyer
-    Route::prefix('byer')->middleware(['byer'])->name('byer.')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('byer.dashboard');
-        });
-    });
+    // // Les routes pour le buyer
+    // Route::prefix('byer')->middleware(['byer'])->name('byer.')->group(function () {
+    //     Route::get('/dashboard', function () {
+    //         return view('byer.dashboard');
+    //     });
+    // });
+    // Route::get('properties', [ControllersPropertyController::class, 'index'])->name('properties.index');
 
 });
 
 
+Route::get('properties', [ControllersPropertyController::class, 'index'])->name('properties.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

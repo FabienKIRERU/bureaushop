@@ -10,11 +10,13 @@
         
     </div>
 
+    <div class="container">
+
+    </div>
     <table class="table table-stripped">
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Proprietaire</th>
                 <th class="text-end">Action</th>
             </tr>
         </thead>
@@ -23,7 +25,6 @@
             @forelse ($categories as $category)
                 <tr>
                     <td> {{ $category->name }} </td>
-                    <td> {{ $category->user?->name }} </td>
                     
                     <td>
                         
@@ -46,6 +47,6 @@
             @endforelse
         </tbody>
     </table>
-    {{-- {{ $options->links() }} --}}
+
 
 @endsection

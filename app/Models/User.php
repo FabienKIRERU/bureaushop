@@ -52,9 +52,9 @@ class User extends Authenticatable
         return $this->role === $role;
     }
 
-    public function categories(){
-        return $this->hasMany(Category::class);
-    }
+    // public function categories(){
+    //     return $this->hasMany(Category::class);
+    // }
 
     public function properties(){
         return $this->hasMany(Property::class);

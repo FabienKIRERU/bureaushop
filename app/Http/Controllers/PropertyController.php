@@ -23,6 +23,7 @@ class PropertyController extends Controller
 
 
         $properties = $this->propertyService->getPropertiesWithCategories();
+        // dd($properties);
         return view('properties.index',[
             'properties' => $properties,
             'categories' => $this->categoryService->getAllCategories(),

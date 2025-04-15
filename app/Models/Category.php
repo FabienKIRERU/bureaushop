@@ -18,9 +18,9 @@ class Category extends Model
     public function properties() {
         return $this->belongsToMany(Property::class, 'property_category');
     }
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
 }

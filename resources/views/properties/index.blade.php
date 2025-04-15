@@ -42,10 +42,16 @@
                     @forelse ($properties as $property)
                         <div class="col-md-4 mb-4">
                             <div class="card h-100 shadow-sm">
-                                <img src="{{ $property->images->first()->url ?? asset('images/default.jpg') }}" 
+                                @if($property->images->isNotEmpty())
+                                    <img src="{{ asset('storage/' . $property->images->first()->image_path) }}" class="card-img-top" alt="Image du bien" style="height: 200px; object-fit: cover;">
+                                @else
+                                    <img src="{{ asset('images/default.jpg') }}" class="card-img-top" alt="Image par défaut" style="height: 200px; object-fit: cover;">
+                                @endif
+
+                                {{-- <img src="{{ $property->images->first()->url ?? asset('images/default.jpg') }}" 
                                     class="card-img-top" 
                                     alt="Image du bien" 
-                                    style="height: 200px; object-fit: cover;">
+                                    style="height: 200px; object-fit: cover;"> --}}
 
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $property->name }}</h5>

@@ -46,6 +46,22 @@ class PropertyService {
         }
     }
 
+    public function createPropertyWithImages(array $data, array $images){
+        $property = $this->propertyRepository->create($data);
+
+        foreach ($data['categories'] as $category) {
+            $property->categories()->attach($category);
+        }
+
+        foreach ($images as $image) {
+            $path = $image->store('properties', 'public');
+            $property->images()->create(['image_path' => $path]);
+        }
+
+        return $property;
+    }
+
+
     public function updateProperty($id, array $data) {
         return $this->propertyRepository->update($id, $data);
     }

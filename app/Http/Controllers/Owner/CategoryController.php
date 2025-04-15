@@ -38,8 +38,6 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        $data['user_id'] = Auth::id();
-
         $category = $this->categoryService->createCategory($data);
         return redirect()->route('owner.categories.index')->with('success', 'Catégorie créée avec succès.');
         
@@ -57,7 +55,7 @@ class CategoryController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
         ]);
-        $data['user_id'] = Auth::id(); 
+        // $data['user_id'] = Auth::id(); 
 
         $this->categoryService->updateCategory($id, $data);
 

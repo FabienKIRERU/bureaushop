@@ -32,12 +32,12 @@ use App\Repositories\Contracts\CategoryRepositoryInterface;
 
     public function getWithUser(){
         return Cache::remember('categories', 60 * 60 * 24, function () {
-            return $this->category->whereNotNull('user_id')->get();
+            return $this->category->get();
         });
     }
 
     public function getByUser(int $userId){
-        return $this->category->where('user_id', $userId)->get();
+        return $this->category->get();
         // return Category::whereHas('properties', function ($query) use ($userId) {
         //     $query->where('user_id', $userId);
         // })->get();

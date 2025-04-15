@@ -83,6 +83,16 @@
                 <label for="new_categories" class="block font-semibold mb-1">Nouvelles catégories (séparées par une virgule)</label>
                 <input type="text" name="new_categories" class="w-full border rounded p-2" placeholder="ex: Scanner, Imprimante Pro">
             </div>
+
+
+            <div class="mb-3 form-control">
+                <label for="images" class="form-label">Images</label>
+                <input type="file" name="images[]" class="form-control" multiple>
+            </div>
+
+            {{-- <div class="form-control">
+                <input class="form-control @error('picture') is-invalid @enderror" type="file" name="{{ 'picture' . ('multiple' ? '[]' : '') }}" id="picture">
+            </div> --}}
             
             <div>
                 <button type="submit" class="btn btn-dark mt-3">

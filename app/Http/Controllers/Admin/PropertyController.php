@@ -49,18 +49,14 @@ class PropertyController extends Controller
             'categories' => 'required|array',
             'categories.*' => 'exists:categories,id',
             'new_categories' => 'nullable|string',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
         $data['user_id'] = Auth::id(); 
+        $images = $request->file('images', []);
 
-        // $this->propertyService->createProperty($data);
+        // $property = $this->propertyService->createProperty($data);
 
-        // return redirect()->route('admin.properties.index')->with('success', 'Propriété créée avec succès.');
-
-
-        // $property = $this->propertyService->createProperty($formPropertyRequest->validated());
-
-        $property = $this->propertyService->createProperty($data);
+        $property = $this->propertyService->createPropertyWithImages($data, $images);
         // dd($data);
 
         $allCategoryIds = $request['categories'] ?? [];

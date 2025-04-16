@@ -84,6 +84,40 @@
                     </div>
                 @enderror 
             </div>
+            <div class="col vstack gap-4 form_picture alert alert-light container" style="">
+                Les Images du bien
+                <div class="container mt-4">
+                    <div class="row">
+                        @foreach ($property->images as $picture)
+                            <div class="col-md-3 mb-4">
+                                <div class="card h-100" id="picture{{$picture->id}}">
+                                    <img src="{{ asset('storage/' . $picture->image_path) }}" alt="" class="p-1 card-img-top w-100 d-block" style="object-fit: contain">
+                                    <button type="button" hx-delete=""
+                                        class="btn btn-danger position-absolute bottom-0 w-100 start-0"
+                                        hx-target="#picture{{$picture->id}}" hx-swap="delete">
+                                            <span class="htmlx-indicator spinner-border spinner-border-sm" role="status" aria-hidden="true">
+                                            </span> Supprimer
+                                    </button>
+                                </div>
+                            </div>
+                            {{-- <div id="picture{{$picture->id}}" class="position-relative">
+                                <img src="{{ asset('storage/' . $property->images->first()->image_path) }}" alt="" class="w-100 d-block">
+                                <button type="button" hx-delete="{{route('owner.picture.destroy', $picture)}}"
+                                class="btn btn-danger position-absolute bottom-0 w-100 start-0"
+                                hx-target="#picture{{$picture->id}}" hx-swap="delete">
+                                    <span class="htmlx-indicator spinner-border spinner-border-sm" role="status" aria-hidden="true">
+                                    </span> Supprimer
+                                </button>
+                            </div> --}}
+                        @endforeach
+
+                    </div>
+                </div>
+                <div class="mb-3 form-control">
+                    <label for="images" class="form-label">Ajouter Les Images</label>
+                    <input type="file" name="images[]" class="form-control" multiple>
+                </div>
+            </div>
             
             <div>
                 <button type="submit" class="btn btn-dark mt-3">

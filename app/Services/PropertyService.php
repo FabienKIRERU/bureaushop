@@ -2,10 +2,11 @@
 
 namespace App\Services; 
 
-use App\Repositories\PropertyRepository;
+use Storage;
+use Exception;
 use App\Models\Property;
 use Illuminate\Support\Facades\DB;
-use Exception;
+use App\Repositories\PropertyRepository;
 
 class PropertyService {
     protected $propertyRepository;
@@ -60,6 +61,30 @@ class PropertyService {
 
         return $property;
     }
+
+    public function updatePropertyWithImages(array $data, array $images, int $id){
+        $property = $this->propertyRepository->findById($id);
+
+        // Mettre à jour le bien
+        $this->propertyRepository->update($id, $data);
+
+        // Mettre à jour les catégories
+        if (isset($data['categories'])) {
+            $property->categories()->sync($data['categories']);
+        }
+
+        // Si de nouvelles images sont fournies
+        if (!empty($images)) {
+            // Ajouter les nouvelles images
+            foreach ($images as $image) {
+                $path = $image->store('properties', 'public');
+                $property->images()->create(['image_path' => $path]);
+            }
+        }
+
+        return $property;
+    }
+
 
 
     public function updateProperty($id, array $data) {

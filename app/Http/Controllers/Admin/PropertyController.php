@@ -82,8 +82,8 @@ class PropertyController extends Controller
         ]);
     }
 
-    public function update($id, Request $request){
-
+    public function update(Request $request, $id){
+        // dd('okay');
         $data = $request->validate([
                 'name' => 'required|string|max:255',
                 'description' => 'nullable|string',
@@ -91,12 +91,14 @@ class PropertyController extends Controller
                 'stock' => 'required|numeric',
                 'categories' => 'required|array',
                 'categories.*' => 'exists:categories,id',
+                'new_categories' => 'nullable|string',
+                'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:18432',
         ]);
-
-        $data['user_id'] = Auth::id();
+        $data['user_id'] = Auth::id(); 
         // dd($data);
+        $images = $request->file('images', []);
 
-        $this->propertyService->updateProperty($id, $data);
+        $this->propertyService->updatePropertyWithImages($data, $images, $id);
     
         return redirect()->route('admin.properties.index')->with('success', 'Bien mis à jour avec succès.');
 

@@ -13,6 +13,7 @@
     <table class="table table-stripped">
         <thead>
             <tr>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Categorie</th>
                 <th>Statut</th>
@@ -23,10 +24,19 @@
         <tbody>
             @forelse ($properties as $property)
                 <tr>
+                    <td>
+                        <div class="card h-100 shadow-sm">
+                            @if($property->images->isNotEmpty())
+                                <img src="{{ asset('storage/' . $property->images->first()->image_path) }}" class="card-img-top" alt="Image du bien" style="height: 200px; object-fit: cover;">
+                            @else
+                                <img src="{{ asset('images/default.jpg') }}" class="card-img-top" alt="Image par défaut" style="height: 200px; object-fit: cover;">
+                            @endif
+                        </div>
+                    </td>
                     <td> {{ $property->name }} </td>
                     <td>
                         @foreach ($property->categories as $category)
-                            <span class="inline-block bg-gray-200 text-sm text-gray-700 px-2 py-1 rounded mr-1">{{ $category->name }}</span>
+                            <p class="inline-block bg-gray-200 text-sm text-gray-700 px-2 py-1 rounded mr-1">{{ $category->name }}</p>
                         @endforeach
                     </td>
                     <td> {{ $property->status }} </td>

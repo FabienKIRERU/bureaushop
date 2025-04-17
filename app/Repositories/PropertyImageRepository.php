@@ -19,11 +19,16 @@ class PropertyImageRepository implements PropertyImageRepositoryInterface {
         return PropertyImage::where('property_id', $propertyId)->get();
     }
 
+    public function findById($id)
+    {
+       return $this->propertyImage->findorFail($id);
+    }
+
     public function create(array $data): PropertyImage {
         return PropertyImage::create($data);
     }
 
-    public function delete(PropertyImage $image): bool {
-        return $image->delete();
+    public function delete($id): bool {
+        return PropertyImage::delete($id);
     }
 }

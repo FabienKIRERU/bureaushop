@@ -92,7 +92,7 @@
                             <div class="col-md-3 mb-4">
                                 <div class="card h-100" id="picture{{$picture->id}}">
                                     <img src="{{ asset('storage/' . $picture->image_path) }}" alt="" class="p-1 card-img-top w-100 d-block" style="object-fit: contain">
-                                    <button type="button" hx-delete=""
+                                    <button type="button" hx-delete="{{ route('admin.picture.destroy', $picture->id) }}"
                                         class="btn btn-danger position-absolute bottom-0 w-100 start-0"
                                         hx-target="#picture{{$picture->id}}" hx-swap="delete">
                                             <span class="htmlx-indicator spinner-border spinner-border-sm" role="status" aria-hidden="true">

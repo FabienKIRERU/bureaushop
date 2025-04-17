@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PictureController;
 use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Owner\CategoryController as OwnerCategoryController;
 use App\Http\Controllers\Owner\PropertyController as OwnerPropertyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController as ControllersPropertyController;
 use Illuminate\Support\Facades\Route;
+
+$idRegex = '[0-9]+';
+$slugRegex = '[0-9a-z\-]+';
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,6 +37,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
         Route::put('category/{id}/edit', [CategoryController::class, 'update'])->name('category.update');
         Route::delete('category/{id}/delete', [CategoryController::class, 'destroy'])->name('category.delete');
+
+        Route::delete('picture/{id}', [PictureController::class, 'destroy'])->name('picture.destroy');
+
+        // Route::delete('picture/{picture}', [AdminPictureController::class, 'destroy'])->name('picture.destroy')->where([
+        //     'picture' => $idRegex,
+        // ]);
     });
 
     // Les routes pour le owner

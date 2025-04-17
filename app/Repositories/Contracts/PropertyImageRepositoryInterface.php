@@ -10,6 +10,8 @@ interface PropertyImageRepositoryInterface{
     public function getByPropertyId(int $propertyId);
 
     public function create(array $data);
+    
+    public function findById($id);
 
-    public function delete(PropertyImage $image);
+    public function delete($id);
 }

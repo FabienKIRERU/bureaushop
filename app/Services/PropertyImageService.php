@@ -35,10 +35,10 @@ class PropertyImageService {
         }
     }
 
-    public function deleteImage(PropertyImage $image) {
+    public function deleteImage($id) {
         DB::beginTransaction();
         try {
-            
+            $image = $this->propertyImageRepository->findById($id);
             Storage::disk('public')->delete($image->image_path);
             $this->propertyImageRepository->delete($image);
             DB::commit();

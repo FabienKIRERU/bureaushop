@@ -48,11 +48,16 @@ class PropertyController extends Controller
             'categories' => 'required|array',
             'categories.*' => 'exists:categories,id',
             'new_categories' => 'nullable|string',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $data['user_id'] = Auth::id(); 
+        $images = $request->file('images', []);
 
-        $property = $this->propertyService->createProperty($data);
+        // $property = $this->propertyService->createProperty($data);
+
+        $property = $this->propertyService->createPropertyWithImages($data, $images);
+        // dd($data);
 
         $allCategoryIds = $request['categories'] ?? [];
 
@@ -86,12 +91,13 @@ class PropertyController extends Controller
                 'stock' => 'required|numeric',
                 'categories' => 'required|array',
                 'categories.*' => 'exists:categories,id',
+                'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:18432',
         ]);
-
-        $data['user_id'] = Auth::id();
+        $data['user_id'] = Auth::id(); 
         // dd($data);
+        $images = $request->file('images', []);
 
-        $this->propertyService->updateProperty($id, $data);
+        $this->propertyService->updatePropertyWithImages($data, $images, $id);
     
         return redirect()->route('owner.properties.index')->with('success', 'Bien mis à jour avec succès.');
 

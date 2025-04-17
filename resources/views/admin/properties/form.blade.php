@@ -84,7 +84,6 @@
                 <input type="text" name="new_categories" class="w-full border rounded p-2" placeholder="ex: Scanner, Imprimante Pro">
             </div>
 
-
             <div class="mb-3 form-control">
                 <label for="images" class="form-label">Images</label>
                 <input type="file" name="images[]" class="form-control" multiple>

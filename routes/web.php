@@ -17,10 +17,10 @@ Route::get('/', function () {
 });
 
 // Les routes pour les utilisateurs authentifie
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () use ($idRegex){
 
     // Les routes pour l'admin
-    Route::prefix('admin')->middleware(['admin'])->name('admin.')->group(function () {
+    Route::prefix('admin')->middleware(['admin'])->name('admin.')->group(function () use ($idRegex){
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
         });
@@ -38,7 +38,9 @@ Route::middleware(['auth'])->group(function () {
         Route::put('category/{id}/edit', [CategoryController::class, 'update'])->name('category.update');
         Route::delete('category/{id}/delete', [CategoryController::class, 'destroy'])->name('category.delete');
 
-        Route::delete('picture/{id}', [PictureController::class, 'destroy'])->name('picture.destroy');
+        Route::delete('picture/{id}', [PictureController::class, 'destroy'])->name('picture.destroy')->where([
+                'picture' => $idRegex,
+            ]);
 
         // Route::delete('picture/{picture}', [AdminPictureController::class, 'destroy'])->name('picture.destroy')->where([
         //     'picture' => $idRegex,
@@ -77,6 +79,8 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::get('properties', [ControllersPropertyController::class, 'index'])->name('properties.index');
+Route::get('/properties/{id}', [ControllersPropertyController::class, 'show'])->name('properties.show');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

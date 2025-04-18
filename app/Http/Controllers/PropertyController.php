@@ -29,4 +29,15 @@ class PropertyController extends Controller
             'categories' => $this->categoryService->getAllCategories(),
         ]);
     }
+
+    public function show(int $id){
+        // dd('ok');
+        $property = $this->propertyService->getPropertyDetails($id);
+    
+        abort_if(!$property, 404);
+    
+        return view('properties.show', compact('property'));
+    }
+    
+
 }

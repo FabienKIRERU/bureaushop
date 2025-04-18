@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Property;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\Contracts\PropertyRepositoryInterface;
@@ -27,6 +28,7 @@ class PropertyRepository implements PropertyRepositoryInterface {
     public function findById(int $id): ?Property {
         return Property::with(['categories', 'user', 'images'])->findOrFail($id);
     }
+
 
     public function getByCategory(int $categoryId): Collection {
         return Property::where('category_id', $categoryId)->with(['images'])->get();

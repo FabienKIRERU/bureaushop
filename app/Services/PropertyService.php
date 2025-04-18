@@ -31,6 +31,7 @@ class PropertyService {
         return $this->propertyRepository->findById($id);
     }
 
+
     public function getPropertiesByCategory(int $categoryId) {
         return $this->propertyRepository->getByCategory($categoryId);
     }

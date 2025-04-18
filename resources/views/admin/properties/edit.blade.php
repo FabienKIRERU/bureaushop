@@ -94,7 +94,7 @@
                                     <img src="{{ asset('storage/' . $picture->image_path) }}" alt="" class="p-1 card-img-top w-100 d-block" style="object-fit: contain">
                                     <button type="button" hx-delete="{{ route('admin.picture.destroy', $picture->id) }}"
                                         class="btn btn-danger position-absolute bottom-0 w-100 start-0"
-                                        hx-target="#picture{{$picture->id}}" hx-swap="delete">
+                                        hx-target="#picture{{$picture->id}}" hx-swap="outerHTML">
                                             <span class="htmlx-indicator spinner-border spinner-border-sm" role="status" aria-hidden="true">
                                             </span> Supprimer
                                     </button>

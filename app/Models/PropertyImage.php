@@ -18,7 +18,8 @@ class PropertyImage extends Model
 
     protected static function booted():void
     {
-        static::deleting(function(PropertyImage $propertyImage){
+        static::deleting(function($id){
+            $propertyImage = PropertyImage::firstOrFail($id);
             Storage::delete($propertyImage->image_path);
         });
     }

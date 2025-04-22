@@ -43,7 +43,7 @@ class AuthenticatedSessionController extends Controller
                 break;
                       
             case $user->role == "byer": 
-                return redirect()->intended('/byer/dashboard');
+                return redirect()->intended('/properties');
                 break;
                             
             default:

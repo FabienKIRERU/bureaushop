@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PropertyContactRequest;
+use App\Mail\PropertyContactMail;
+use App\Models\Property;
+use App\Models\User;
+use App\Notifications\ContactRequestNotification;
 use Illuminate\Http\Request;
 use App\Services\CategoryService;
 use App\Services\PropertyService;
+use Illuminate\Support\Facades\Mail;
 
 class PropertyController extends Controller
 {
@@ -37,6 +43,13 @@ class PropertyController extends Controller
         abort_if(!$property, 404);
     
         return view('properties.show', compact('property'));
+    }
+
+    public function contact(Property $property, PropertyContactRequest $request){
+        // dd($property->user->email);
+
+        Mail::send(new PropertyContactMail($property, $request->validated()));
+        return back()->with('success', 'Votre demande est bien envoye');
     }
     
 

@@ -55,29 +55,43 @@
                         @endforelse
                     </div>
 
-                    <hr>
 
                     <!-- Formulaire de contact -->
                     <h3>Contacter le propriétaire</h3>
                     <div class="alert alert-light">
-                        <form method="" action="">
+                        <form method="post" action="{{ route("property.contact", $property ) }}">
+                            @csrf
                             <h5>Envoyer un email</h5>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Votre email</label>
-                                <input type="email" class="form-control" id="email" placeholder="example@gmail.com"/>
+                            <div class="row mb-3">
+                                <div class="col">Nom
+                                    <input type="text" name="name" class="form-control">
+                                </div>
+                                <div class="col">Prenom
+                                    <input type="text" name="first_name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <div class="col">
+                                    <label for="email" class="form-label">Votre email</label>
+                                    <input type="email" name="email" class="form-control" id="email" placeholder="example@gmail.com"/>
+                                </div>
+                                <div class="col">
+                                    <label for="phone" class="form-label">Votre Num Phone</label>
+                                    <input type="tel"  name="phone" class="form-control" id="phone" placeholder="+243990025406"/>
+                                </div>
                             </div>
     
                             <div class="mb-3">
                                 <label for="message" class="form-label">Votre message</label>
-                                <textarea class="form-control" id="message" rows="3" placeholder="Bonjour, je suis intéressé par ce bien..."></textarea>
+                                <textarea name="message" class="form-control" id="message" rows="3" placeholder="Bonjour, je suis intéressé par ce bien..."></textarea>
                             </div>
                             <div class="mb-3">
                                 <button class="btn btn-dark">Envoyez mail</button>
                             </div>
                         </form>
                     </div>
-                    Joindre le proprietaire
-                    <div class="d-flex gap-3">
+                    <div class="d-flex gap-3 gap-2 w-100 justify-content-end ">
+                        Joindre le proprietaire sur : 
                         <a href="#" class="btn btn-success">
                             <i class="bi bi-whatsapp"></i> WhatsApp
                         </a>

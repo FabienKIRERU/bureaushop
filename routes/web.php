@@ -81,6 +81,10 @@ Route::middleware(['auth'])->group(function () use ($idRegex){
 Route::get('properties', [ControllersPropertyController::class, 'index'])->name('properties.index');
 Route::get('/properties/{id}', [ControllersPropertyController::class, 'show'])->name('properties.show');
 
+Route::post('bien/{property}/contact', [ControllersPropertyController::class, 'contact'])->name('property.contact')->where([
+        'property' => $idRegex,
+    ]);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

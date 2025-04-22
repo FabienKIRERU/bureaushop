@@ -43,6 +43,7 @@
                     
                     <td>
                         <div class="d-flex gap-2 w-100 justify-content-end">
+                            <a href="{{ route('properties.show', $property->id) }}" class="btn btn-light text-info">Voir</a>
                             <a href="{{ route('owner.property.edit', $property->id) }}" class="btn btn-light text-dark">Editer</a>
 
                             <form action="{{ route('owner.property.delete', $property->id) }}" method="POST" onsubmit="return confirm('Es-tu sûr de vouloir supprimer ce bien ?')">

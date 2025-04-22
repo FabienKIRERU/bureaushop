@@ -47,17 +47,11 @@
                                 @else
                                     <img src="{{ asset('images/default.jpg') }}" class="card-img-top" alt="Image par défaut" style="height: 200px; object-fit: cover;">
                                 @endif
-
-                                {{-- <img src="{{ $property->images->first()->url ?? asset('images/default.jpg') }}" 
-                                    class="card-img-top" 
-                                    alt="Image du bien" 
-                                    style="height: 200px; object-fit: cover;"> --}}
-
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $property->name }}</h5>
                                     <p class="card-text">{{ Str::limit($property->description, 80) }}</p>
                                     <p class="text-muted">{{ number_format($property->price, 2) }} USD</p>
-                                    <a href="" class="btn btn-primary btn-sm">Voir détail</a>
+                                    <a href="{{ route('properties.show', $property->id) }}" class="btn btn-primary btn-sm">Voir détail</a>
                                 </div>
                             </div>
                         </div>

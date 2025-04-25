@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Property;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -15,7 +16,7 @@ class ContactRequestNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(Property $property, array $data)
+    public function __construct(private Property $property, private array $data)
     {
         //
     }
@@ -27,7 +28,13 @@ class ContactRequestNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return [
+            'mail',
+            'database'
+        ];
+        // if ($notifiable instanceof User && $notifiable->accept_email) {
+        //     return ['mail', 'database'];
+        // } return ['database'];
     }
 
     /**
@@ -36,9 +43,9 @@ class ContactRequestNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->line('Contact pour le bien '. $this->property->name)
+            ->action('voir', url( "/" ) )
+            ->line('Merci d\'Utiliser l\application !');
     }
 
     /**
@@ -49,7 +56,10 @@ class ContactRequestNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'property_id' => $this->property->id,
+            'name' => $this->property->name,
+            ...$this->data,
+
         ];
     }
 }

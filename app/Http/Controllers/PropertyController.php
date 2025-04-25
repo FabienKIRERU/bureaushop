@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Services\CategoryService;
 use App\Services\PropertyService;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 class PropertyController extends Controller
 {
@@ -41,14 +42,24 @@ class PropertyController extends Controller
         $property = $this->propertyService->getPropertyDetails($id);
     
         abort_if(!$property, 404);
+
+        $user = $property->user;
+        // dd($user->unreadNotifications);
     
         return view('properties.show', compact('property'));
     }
 
     public function contact(Property $property, PropertyContactRequest $request){
         // dd($property->user->email);
+        // dd($property->user);
 
+        // Envoyer l'email au proprietaire du bien entrer par l'utilisateur
         Mail::send(new PropertyContactMail($property, $request->validated()));
+
+        // Notifier le proprio du bien q'\un utilisateur s'est interesse par sosn bien
+        $user = $property->user; 
+        // $user->notify(new ContactRequestNotification($property, $request->validated()));
+        Notification::route('mail', $user->email)->notify(new ContactRequestNotification($property, $request->validated()));
         return back()->with('success', 'Votre demande est bien envoye');
     }
     
